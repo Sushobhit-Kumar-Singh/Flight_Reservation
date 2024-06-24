@@ -1,0 +1,30 @@
+<div *ngIf="customerDetails" class="container mt-4">
+  <h2 class="mb-4 text-center">Customer Details</h2>
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <th scope="row">Name</th>
+        <td>{{ customerDetails.firstName }} {{ customerDetails.lastName }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th>
+        <td>{{ customerDetails.email }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Birth Date</th>
+        <td>{{ customerDetails.birthDate | date : "mediumDate" }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Phone No</th>
+        <td>{{ customerDetails.phoneNo }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <p>
+        <a (click)="goBack()" class="btn btn-outline-dark">Back</a>
+      </p>
+    </div>
+  </div>
+</div>

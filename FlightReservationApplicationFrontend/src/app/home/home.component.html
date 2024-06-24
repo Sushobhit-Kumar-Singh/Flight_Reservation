@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="container custom-text">
+    <h2>Flight Services</h2>
+  </div>
+  <div class="container mb-4 me-2">
+    <a (click)="goBack()" class="btn btn-outline-dark">Back</a>
+  </div>
+  <div
+    class="card mt-3"
+    *ngIf="filteredFlights.length === 0 && searchTerm.trim() !== ''"
+  >
+    <div class="card-body">
+      <h5 class="card-title text-danger mb-4">No Matching Flights Found!</h5>
+      <p class="card-text">
+        <strong class="text-warning">Oops!</strong> We couldn't find any flights
+        for '{{ searchTerm }}'. Please try again with a different search term.
+      </p>
+      <p class="card-text text-muted">
+        If you have any questions, feel free to contact our support team.
+      </p>
+    </div>
+  </div>
+
+  <div
+    *ngFor="let flight of searchTerm ? filteredFlights : flights"
+    class="card mb-4"
+  >
+    <div class="card-header">
+      <h5 class="card-title">{{ flight?.flightNumber }}</h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <strong>Departure City:</strong> {{ flight?.departureCity }}
+      </p>
+      <p class="card-text">
+        <strong>Arrival City:</strong> {{ flight?.arrivalCity }}
+      </p>
+      <p class="card-text">
+        <strong>Departure Time:</strong>
+        {{ formatDateTime(flight?.departureTime) }}
+      </p>
+      <p class="card-text">
+        <strong>Arrival Time:</strong> {{ formatDateTime(flight?.arrivalTime) }}
+      </p>
+      <p class="card-text">
+        <strong>Available Seats:</strong>
+        {{ flight?.availableSeats ?? "N/A" }} /
+        {{ flight?.totalSeats ?? "N/A" }}
+      </p>
+      <div class="container">
+        <p>
+          <a (click)="bookFlight(flight.flightId)" class="btn btn-outline-dark"
+            >Book Flight</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

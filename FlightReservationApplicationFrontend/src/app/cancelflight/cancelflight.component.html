@@ -1,0 +1,18 @@
+<div
+  class="container d-flex align-items-center justify-content-center"
+  style="height: 100vh"
+>
+  <div class="card text-center">
+    <div class="card-body">
+      <h2 class="card-title">Cancel Flight</h2>
+      <p class="card-text">
+        Are you sure you want to cancel the flight with Flight ID:
+        {{ flightId }}?
+      </p>
+      <button class="btn btn-outline-danger me-2" (click)="cancelFlight()">
+        Cancel Flight
+      </button>
+      <button class="btn btn-outline-dark" (click)="goBack()">Back</button>
+    </div>
+  </div>
+</div>

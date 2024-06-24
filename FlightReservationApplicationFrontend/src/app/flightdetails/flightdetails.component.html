@@ -1,0 +1,61 @@
+<div class="container">
+  <div *ngIf="flights.length > 0">
+    <div class="container custom-text">
+      <h2>Your Flights</h2>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Serial No</th>
+          <th>Customer ID</th>
+          <th>Flight ID</th>
+          <th>Flight Number</th>
+          <th>Departure City</th>
+          <th>Arrival City</th>
+          <th>Departure Time</th>
+          <th>Arrival Time</th>
+          <th>Available Seats</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flight of flights; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ flight.customerId }}</td>
+          <td>{{ flight.flightId }}</td>
+          <td>{{ flight.flightNumber }}</td>
+          <td>{{ flight.departureCity }}</td>
+          <td>{{ flight.arrivalCity }}</td>
+          <td>{{ flight.departureTime | date : "medium" }}</td>
+          <td>{{ flight.arrivalTime | date : "medium" }}</td>
+          <td>{{ flight.availableSeats }} / {{ flight.totalSeats }}</td>
+          <td>
+            <div class="container me-4">
+              <p>
+                <a
+                  (click)="bookFlight(flight.flightId)"
+                  class="btn btn-outline-dark"
+                  >Book Flight</a
+                >
+              </p>
+              <p>
+                <a
+                  (click)="cancelFlight(flight.customerId, flight.flightId)"
+                  class="btn btn-outline-danger"
+                  >Cancel Flight</a
+                >
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <p>
+          <a (click)="goBack()" class="btn btn-outline-dark">Back</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

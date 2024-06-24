@@ -1,0 +1,220 @@
+<div class="container">
+  <div class="container custom-text">
+    <h2>Staff Portal Flight Operations</h2>
+  </div>
+  <form
+    *ngIf="flightForm"
+    [formGroup]="flightForm"
+    (ngSubmit)="onSubmit()"
+    class="mb-4"
+  >
+    <div class="row mb-3">
+      <label for="flightNumber" class="col-sm-2 col-form-label"
+        >Flight No:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control hover-effect"
+          id="flightNumber"
+          formControlName="flightNumber"
+        />
+        <mat-error *ngIf="flightForm.get('flightNumber')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('flightNumber')?.hasError('required')"
+            class="text-danger"
+          >
+            Flight Number is required
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="departureCity" class="col-sm-2 col-form-label"
+        >Departure City:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control hover-effect"
+          id="departureCity"
+          formControlName="departureCity"
+        />
+        <mat-error *ngIf="flightForm.get('departureCity')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('departureCity')?.hasError('required')"
+            class="text-danger"
+          >
+            Departure City is required
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="arrivalCity" class="col-sm-2 col-form-label"
+        >Arrival City:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control hover-effect"
+          id="arrivalCity"
+          formControlName="arrivalCity"
+        />
+        <mat-error *ngIf="flightForm.get('arrivalCity')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('arrivalCity')?.hasError('required')"
+            class="text-danger"
+          >
+            Arrival City is required
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="departureTime" class="col-sm-2 col-form-label"
+        >Departure Time:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="datetime-local"
+          class="form-control hover-effect"
+          id="departureTime"
+          formControlName="departureTime"
+        />
+        <mat-error *ngIf="flightForm.get('departureTime')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('departureTime')?.hasError('required')"
+            class="text-danger"
+            >Departure time is required.
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="arrivalTime" class="col-sm-2 col-form-label"
+        >Arrival Time:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="datetime-local"
+          class="form-control hover-effect"
+          id="arrivalTime"
+          formControlName="arrivalTime"
+        />
+        <mat-error *ngIf="flightForm.get('arrivalTime')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('arrivalTime')?.hasError('required')"
+            class="text-danger"
+            >Arrival time is required.
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="totalSeats" class="col-sm-2 col-form-label"
+        >Total Seats:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="number"
+          class="form-control hover-effect"
+          id="totalSeats"
+          formControlName="totalSeats"
+        />
+        <mat-error *ngIf="flightForm.get('totalSeats')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('totalSeats')?.hasError('required')"
+            class="text-danger"
+            >Total seats is required.</mat-error
+          >
+          <mat-error
+            *ngIf="flightForm.get('totalSeats')?.hasError('min')"
+            class="text-danger"
+            >Total seats must be at least 1.
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="availableSeats" class="col-sm-2 col-form-label"
+        >Available Seats:</label
+      >
+      <div class="col-sm-10">
+        <input
+          type="number"
+          class="form-control hover-effect"
+          id="availableSeats"
+          formControlName="availableSeats"
+        />
+        <mat-error *ngIf="flightForm.get('availableSeats')?.touched">
+          <mat-error
+            *ngIf="flightForm.get('availableSeats')?.hasError('required')"
+            class="text-danger"
+            >Available seats is required.</mat-error
+          >
+          <mat-error
+            *ngIf="flightForm.get('availableSeats')?.hasError('min')"
+            class="text-danger"
+            >Available seats must be at least 0.</mat-error
+          >
+          <mat-error
+            *ngIf="flightForm.get('availableSeats')?.hasError('invalidSeats')"
+            class="text-danger"
+          >
+            {{ flightForm.get("availableSeats")?.getError("message") }}
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary me-2">
+      {{ isEditing ? "Edit Flight" : "Add Flight" }}
+    </button>
+    <a (click)="goBack()" class="btn btn-outline-dark">Back</a>
+  </form>
+
+  <div class="container">
+    <div *ngFor="let flight of flights" class="card mb-4">
+      <div class="card-header">
+        <h5 class="card-title">{{ flight?.flightNumber }}</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <strong>Departure City:</strong> {{ flight?.departureCity }}
+        </p>
+        <p class="card-text">
+          <strong>Arrival City:</strong> {{ flight?.arrivalCity }}
+        </p>
+        <p class="card-text">
+          <strong>Departure Time:</strong>
+          {{ formatDateTime(flight?.departureTime) }}
+        </p>
+        <p class="card-text">
+          <strong>Arrival Time:</strong>
+          {{ formatDateTime(flight?.arrivalTime) }}
+        </p>
+        <p class="card-text">
+          <strong>Available Seats:</strong>
+          {{ flight?.availableSeats ?? "N/A" }} /
+          {{ flight?.totalSeats ?? "N/A" }}
+        </p>
+      </div>
+      <button (click)="editFlight(flight)" class="btn btn-outline-primary mb-3">
+        Edit
+      </button>
+      <button
+        (click)="deleteFlight(flight.flightId)"
+        class="btn btn-outline-danger"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

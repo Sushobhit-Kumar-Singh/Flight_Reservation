@@ -1,0 +1,112 @@
+<!-- login.component.html -->
+<div class="container">
+  <div *ngIf="isLoginFailed">
+    <p class="error-message text-danger">
+      Login failed. Please check your credentials and try again.
+    </p>
+    <div *ngIf="isLoggingIn" class="loading-spinner">Loading...</div>
+  </div>
+  <div *ngIf="isLoginSuccessful">
+    <p class="text-success">Login successful</p>
+  </div>
+  <div class="container custom-text">
+    <h2>Login</h2>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="row mb-3">
+      <label for="username" class="col-sm-2 col-form-label">Username:</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control hover-effect"
+          id="username"
+          formControlName="username"
+        />
+        <mat-error *ngIf="loginForm.get('username')?.touched">
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('username')?.hasError('required')"
+          >
+            Username is required
+          </mat-error>
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('username')?.hasError('minlength')"
+          >
+            Username must be at least 3 characters
+          </mat-error>
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('username')?.hasError('maxlength')"
+          >
+            Username must be at most 20 characters
+          </mat-error>
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('username')?.hasError('pattern')"
+          >
+            Only letters, numbers, and underscores are allowed
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label for="password" class="col-sm-2 col-form-label">Password:</label>
+      <div class="col-sm-10">
+        <input
+          type="{{ showPassword ? 'text' : 'password' }}"
+          class="form-control hover-effect mb-3"
+          id="password"
+          formControlName="password"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="togglePasswordVisibility()"
+        >
+          <i class="material-icons">
+            {{ showPassword ? "visibility_off" : "visibility" }}
+          </i>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.touched">
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('password')?.hasError('required')"
+          >
+            Password is required
+          </mat-error>
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('password')?.hasError('minlength')"
+          >
+            Password must be at least 8 characters
+          </mat-error>
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('password')?.hasError('maxlength')"
+          >
+            Password must be at most 20 characters
+          </mat-error>
+          <mat-error
+            class="text-danger"
+            *ngIf="loginForm.get('password')?.hasError('pattern')"
+          >
+            Only letters, numbers, and underscores are allowed
+          </mat-error>
+        </mat-error>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary mb-3 me-2">
+      Login
+    </button>
+    <button (click)="goBack()" class="btn btn-outline-dark mb-3">Back</button>
+    <div>
+      <a routerLink="/register" style="text-decoration: none"
+        >If you don't have an account, please register</a
+      >
+    </div>
+  </form>
+</div>

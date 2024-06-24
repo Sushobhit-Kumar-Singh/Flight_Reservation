@@ -1,0 +1,100 @@
+<div class="mat-typography">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">Flight Registration</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/admin"
+              >Admin</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/staff"
+              >Staff</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              routerLink="/register"
+              >Register</a
+            >
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ isLoggedIn() ? getLoggedInUserName() || "My Account" : "" }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" routerLink="/profile">My Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/bookingdetails"
+                  >Booking Details</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/flightdetails"
+                  >Flight Details</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li *ngIf="isLoggedIn()">
+                <a class="dropdown-item" routerLink="/logout">Logout</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/login"
+              >Login</a
+            >
+          </li>
+        </ul>
+        <form class="d-flex" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search..."
+            formControlName="searchTerm"
+            aria-label="Search"
+            id="navbarSearchInput"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item" *ngIf="isLoggedIn()">
+            <a class="nav-link active" aria-current="page" routerLink="/logout"
+              >Logout</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
